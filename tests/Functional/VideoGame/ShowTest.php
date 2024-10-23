@@ -15,4 +15,23 @@ final class ShowTest extends FunctionalTestCase
         self::assertResponseIsSuccessful();
         self::assertSelectorTextContains('h1', 'Jeu vidéo 0');
     }
+
+    public function testShouldPostReview(): void
+    {
+        $this->login();
+        $this->get('/jeu-video-1');
+        self::assertResponseIsSuccessful();
+        $this->submit(
+            'Poster',
+            [
+                'review[rating]' => 5,
+                'review[comment]' => 'Ceci est mon commentaire test !',
+            ]
+        );
+        self::assertResponseStatusCodeSame(Response::HTTP_FOUND);
+        $this->client->followRedirect();
+        self::assertSelectorTextContains('div.list-group-item:last-child h3', 'user+0');
+        self::assertSelectorTextContains('div.list-group-item:last-child p', 'Ceci est mon commentaire test !');
+        self::assertSelectorTextContains('div.list-group-item:last-child span.value', '5');
+    }
 }
