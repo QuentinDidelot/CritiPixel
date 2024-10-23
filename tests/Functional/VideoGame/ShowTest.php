@@ -19,8 +19,9 @@ final class ShowTest extends FunctionalTestCase
     public function testShouldPostReview(): void
     {
         $this->login();
-        $this->get('/jeu-video-1');
+        $this->get('/jeu-video-0');
         self::assertResponseIsSuccessful();
+        self::assertSelectorTextContains('h1', 'Jeu vidéo 0');
         $this->submit(
             'Poster',
             [
