@@ -14,6 +14,9 @@ use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 #[AsTargetedValueResolver('pagination')]
 final readonly class PaginationValueResolver implements ValueResolverInterface
 {
+    /**
+     * @return iterable<Pagination>
+     */
     public function resolve(Request $request, ArgumentMetadata $argument): iterable
     {
         $argumentType = $argument->getType();
@@ -22,11 +25,13 @@ final readonly class PaginationValueResolver implements ValueResolverInterface
             return [];
         }
 
-        return [new Pagination(
-            $request->query->getInt('page', 1),
-            $request->query->getInt('limit', 10),
-            Sorting::tryFromName($request->query->get('sorting', '')) ?? Sorting::ReleaseDate,
-            Direction::tryFromName($request->query->get('direction', '')) ?? Direction::Descending,
-        )];
+        return [
+            new Pagination(
+                $request->query->getInt('page', 1),
+                $request->query->getInt('limit', 10),
+                Sorting::tryFromName($request->query->get('sorting', '')) ?? Sorting::ReleaseDate,
+                Direction::tryFromName($request->query->get('direction', '')) ?? Direction::Descending,
+            )
+        ];
     }
 }
