@@ -72,7 +72,7 @@ final class FilterTest extends FunctionalTestCase
      * @param string[] $expectedVideoGames
      * @dataProvider provideUseCases
      */
-    public function shouldShowVideoGamesByUseCase(
+    public function TestShouldShowVideoGamesByUseCase(
         array $query,
         int $expectedCount,
         int $expectedOffsetFrom,
@@ -246,16 +246,17 @@ final class FilterTest extends FunctionalTestCase
     ): array {
         if ($expectedPage !== null) {
             $expectedPaginationLinks = $expectedPaginationLinks ?? ['1', '2', '3', '4'];
-
+    
             if ($expectedPage > 1) {
                 $expectedPaginationLinks = array_merge(['Première page', 'Précédent'], $expectedPaginationLinks);
             }
-
+    
             if ($expectedCount > 0 && $expectedPage < ceil($expectedTotal / $expectedCount)) {
                 $expectedPaginationLinks = array_merge($expectedPaginationLinks, ['Suivant', 'Dernière page']);
             }
         }
-
+    
+        // Remplissage de `expectedVideoGames` avec `array_map`
         return [
             'query' => $query,
             'expectedCount' => $expectedCount,
@@ -264,11 +265,11 @@ final class FilterTest extends FunctionalTestCase
             'expectedTotal' => $expectedTotal,
             'expectedPage' => $expectedPage,
             'expectedPaginationLinks' => $expectedPaginationLinks ?? [],
-            'expectedVideoGames' => $expectedVideoGames ?? array_fill_callback(
-                $expectedOffsetFrom - 1,
-                $expectedCount,
-                static fn (int $index) => sprintf('Jeu vidéo %d', $index)
+            'expectedVideoGames' => $expectedVideoGames ?? array_map(
+                static fn(int $index) => sprintf('Jeu vidéo %d', $index),
+                range($expectedOffsetFrom - 1, $expectedOffsetFrom - 1 + $expectedCount - 1)
             )
         ];
     }
+    
 }

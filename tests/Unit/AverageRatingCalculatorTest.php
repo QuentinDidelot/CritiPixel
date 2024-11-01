@@ -26,6 +26,7 @@ final class AverageRatingCalculatorTest extends TestCase
 
     /**
      * Fournit des jeux vidéo avec différentes notes pour le calcul de la moyenne
+     * @return iterable<string, array{0: VideoGame, 1: ?int}>
      */
     public static function provideVideoGame(): iterable
     {
