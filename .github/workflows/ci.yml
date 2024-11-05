@@ -72,6 +72,8 @@ jobs:
           php bin/console doctrine:schema:update --force --env=test 
           php bin/console doctrine:fixtures:load --env=test --no-interaction
 
-      # Exécuter les tests PHPUnit
-      - name: Execute tests (Unit and Feature tests) via PHPUnit
-        run: vendor/bin/phpunit
+      # Exécuter les tests PHPUnit et PHPStan
+      - name: Tests
+        run: php bin/phpunit
+      - name: Analysis
+        run: php vendor/bin/phpstan
