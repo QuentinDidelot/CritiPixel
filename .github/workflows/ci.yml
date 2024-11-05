@@ -67,10 +67,10 @@ jobs:
       # Créer et initialiser la base de données de test
       - name: Create Database
         run: |
-          symfony console doctrine:database:drop --force --if-exists --env=test
-          symfony console doctrine:database:create --env=test
-          symfony console doctrine:schema:update --force --env=test 
-          symfony console doctrine:fixtures:load --env=test --no-interaction
+          php bin/console doctrine:database:drop --force --if-exists --env=test
+          php bin/console doctrine:database:create --env=test
+          php bin/console doctrine:schema:update --force --env=test 
+          php bin/console doctrine:fixtures:load --env=test --no-interaction
 
       # Exécuter les tests PHPUnit
       - name: Execute tests (Unit and Feature tests) via PHPUnit
