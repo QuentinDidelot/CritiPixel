@@ -19,9 +19,8 @@ jobs:
       mysql:
         image: mysql:8.0
         env:
-          MYSQL_ALLOW_EMPTY_PASSWORD: "yes" # Autorise l'utilisateur root sans mot de passe
+          MYSQL_ALLOW_EMPTY_PASSWORD: "yes" # Autoriser l'utilisateur root sans mot de passe
           MYSQL_DATABASE: criti-pixel_test   # Création automatique de la base de test pour les tests
-          MYSQL_USER: root
         ports:
           - 3306:3306
         options: >-
