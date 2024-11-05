@@ -39,7 +39,6 @@ jobs:
       run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
     - name: Create Database
       run: |
-        composer install
         symfony console doctrine:database:drop --force --if-exists
         symfony console doctrine:database:create
         symfony console doctrine:schema:update --force --env=test 
