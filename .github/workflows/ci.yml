@@ -59,7 +59,7 @@ jobs:
 
       - name: Wait for MySQL
         run: |
-          until mysqladmin ping -h 127.0.0.1 -u root; do
+          until mysqladmin ping -h mysql -u root; do
             echo "Waiting for MySQL..."
             sleep 5
           done
