@@ -13,14 +13,14 @@ jobs:
   symfony-tests:
     runs-on: ubuntu-latest
     env:
-      DATABASE_URL: mysql://root@127.0.0.1:3306/criti-pixel_test # Utilisation de la base de test
+      DATABASE_URL: mysql://root@127.0.0.1:3306/criti-pixel_test?charset=utf8mb4
 
     services:
       mysql:
         image: mysql:8.0
         env:
-          MYSQL_ALLOW_EMPTY_PASSWORD: "yes" # Autoriser l'utilisateur root sans mot de passe
-          MYSQL_DATABASE: criti-pixel_test   # Création automatique de la base de test pour les tests
+          MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+          MYSQL_DATABASE: criti-pixel_test
         ports:
           - 3306:3306
         options: >-
@@ -30,19 +30,15 @@ jobs:
           --health-retries=3
 
     steps:
-      # Installer PHP
       - uses: shivammathur/setup-php@v2
         with:
           php-version: '8.3'
 
-      # Récupérer le code source
       - uses: actions/checkout@v4
 
-      # Copier le fichier de configuration .env.test.local si nécessaire
       - name: Copy .env.test.local
         run: php -r "file_exists('.env.test.local') || copy('.env.test', '.env.test.local');"
 
-      # Mise en cache des packages Composer
       - name: Cache Composer packages
         id: composer-cache
         uses: actions/cache@v3
@@ -52,31 +48,33 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-php-
 
-      # Installation des dépendances
       - name: Install Dependencies
         run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
-      # Attendre que MySQL soit prêt
       - name: Wait for MySQL
         run: |
           until mysqladmin ping -h 127.0.0.1 -u root; do
             echo "Waiting for MySQL..."
             sleep 5
           done
+          sleep 10
 
-      # Créer et initialiser la base de données de test
       - name: Create Database
         run: |
           php bin/console doctrine:database:drop --force --if-exists --env=test
           php bin/console doctrine:database:create --env=test
-          php bin/console doctrine:schema:update --force --env=test 
-          php bin/console doctrine:fixtures:load --env=test --no-interaction
+          php bin/console doctrine:schema:update --force --env=test
+          php bin/console doctrine:fixtures:load -n --purge-with-truncate --env=test
           php bin/console sass:build
 
-      # Exécuter les tests PHPUnit et PHPStan
-      - name: Tests
+      # Build des assets si nécessaire (ajustez selon vos besoins)
+      - name: Build Assets
         run: |
-          php bin/phpunit
+          npm install
+          npm run build
+
+      - name: Tests
+        run: php bin/phpunit --testdox
+
       - name: Analysis
-        run: | 
-          vendor/bin/phpstan analyse src tests --memory-limit=256M
+        run: vendor/bin/phpstan analyse src tests --memory-limit=256M
