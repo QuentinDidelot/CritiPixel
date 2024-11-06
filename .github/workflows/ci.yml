@@ -73,8 +73,13 @@ jobs:
           php bin/console doctrine:fixtures:load --env=test --no-interaction --purger=delete
           php bin/console sass:build
 
+      #- name: Tests
+      #  run: php bin/phpunit
+
+      #- name: Analysis
+        #run: vendor/bin/phpstan analyse src tests --memory-limit=256M
+
       - name: Tests
         run: php bin/phpunit
-
       - name: Analysis
-        run: vendor/bin/phpstan analyse src tests --memory-limit=256M
+        run: php vendor/bin/phpstan
