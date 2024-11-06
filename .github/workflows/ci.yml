@@ -76,7 +76,7 @@ jobs:
       # Exécuter les tests PHPUnit et PHPStan
       - name: Tests
         run: |
-          symfony php bin/phpunit
+          php bin/phpunit
       - name: Analysis
         run: | 
           vendor/bin/phpstan analyse src tests --memory-limit=256M
