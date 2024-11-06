@@ -67,12 +67,6 @@ jobs:
           php bin/console doctrine:fixtures:load --env=test --no-interaction --purger=delete
           php bin/console sass:build
 
-      # Build des assets si nécessaire (ajustez selon vos besoins)
-      - name: Build Assets
-        run: |
-          npm install
-          npm run build
-
       - name: Tests
         run: php bin/phpunit --testdox
 
