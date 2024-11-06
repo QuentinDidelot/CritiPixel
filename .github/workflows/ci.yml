@@ -13,7 +13,7 @@ jobs:
   symfony-tests:
     runs-on: ubuntu-latest
     env:
-      DATABASE_URL: mysql://root@mysql:3306/criti-pixel_test?charset=utf8mb4
+      DATABASE_URL: mysql://root@127.0.0.1:3306/criti-pixel_test?charset=utf8mb4
 
     services:
       mysql:
@@ -59,7 +59,7 @@ jobs:
 
       - name: Wait for MySQL
         run: |
-          until mysqladmin ping -h mysql -u root; do
+          until mysqladmin ping -h 127.0.0.1 -u root; do
             echo "Waiting for MySQL..."
             sleep 5
           done
