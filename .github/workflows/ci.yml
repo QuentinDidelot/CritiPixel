@@ -2,7 +2,7 @@ name: Continuous integration
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "CI-test" ]
   pull_request:
     branches: [ "main" ]
 
