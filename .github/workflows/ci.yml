@@ -74,6 +74,8 @@ jobs:
           php bin/console sass:build
 
       - name: Tests
+        env: 
+          APP_ENV: test
         run: php bin/phpunit
 
       - name: Analysis
