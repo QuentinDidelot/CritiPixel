@@ -68,7 +68,7 @@ jobs:
           php bin/console sass:build
 
       - name: Tests
-        run: php bin/phpunit --testdox
+        run: php bin/phpunit
 
       - name: Analysis
         run: vendor/bin/phpstan analyse src tests --memory-limit=256M
