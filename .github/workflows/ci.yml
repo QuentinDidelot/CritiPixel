@@ -35,6 +35,9 @@ jobs:
         with:
           php-version: '8.3'
 
+      - name: Update Composer
+        run: composer self-update
+        
 #      - name: Cache Composer packages
 #        id: composer-cache
 #        uses: actions/cache@v3
