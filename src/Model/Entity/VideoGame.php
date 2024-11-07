@@ -115,6 +115,13 @@ class VideoGame
         return $this->slug;
     }
 
+    public function setSlug(string $slug): VideoGame
+    {
+        $this->slug = $slug;
+        return $this;
+    }
+
+
     public function setImageFile(?File $imageFile = null): void
     {
         $this->imageFile = $imageFile;
