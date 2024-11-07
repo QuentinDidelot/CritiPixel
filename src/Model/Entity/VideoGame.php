@@ -50,9 +50,9 @@ class VideoGame
     #[UploadableField(mapping: 'video_games', fileNameProperty: 'imageName', size: 'imageSize')]
     private ?File $imageFile = null;
 
-    /** @phpstan-ignore-next-line */
+    #[Column(type: 'string', length: 128, unique: true)]
     #[Slug(fields: ['title'])]
-    private string $slug = ''; // Valeur par défaut pour éviter l'erreur PHPStan
+    private string $slug = '';
 
     #[NotBlank]
     #[Column(type: Types::TEXT)]
