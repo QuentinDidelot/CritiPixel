@@ -50,9 +50,9 @@ class VideoGame
     #[UploadableField(mapping: 'video_games', fileNameProperty: 'imageName', size: 'imageSize')]
     private ?File $imageFile = null;
 
-    #[Column(type: 'string', length: 128, unique: true)]
+    #[Column(unique: true)]
     #[Slug(fields: ['title'])]
-    private string $slug = '';
+    private string $slug;
 
     #[NotBlank]
     #[Column(type: Types::TEXT)]
@@ -78,14 +78,14 @@ class VideoGame
     private NumberOfRatingPerValue $numberOfRatingsPerValue;
 
     /**
-     * @var Collection<int, Tag>
+     * @var Collection<Tag>
      */
     #[ManyToMany(targetEntity: Tag::class)]
     #[JoinTable(name: 'video_game_tags')]
     private Collection $tags;
 
     /**
-     * @var Collection<int, Review>
+     * @var Collection<Review>
      */
     #[OneToMany(targetEntity: Review::class, mappedBy: 'videoGame')]
     private Collection $reviews;
@@ -216,7 +216,7 @@ class VideoGame
     }
 
     /**
-     * @return Collection<int, Tag>
+     * @return Collection<Tag>
      */
     public function getTags(): Collection
     {
@@ -224,7 +224,7 @@ class VideoGame
     }
 
     /**
-     * @return Collection<int, Review>
+     * @return Collection<Review>
      */
     public function getReviews(): Collection
     {
@@ -234,11 +234,5 @@ class VideoGame
     public function hasAlreadyReview(User $user): bool
     {
         return $this->reviews->exists(static fn (int $key, Review $review): bool => $review->getUser() === $user);
-    }
-
-    // Ajoutez ce getter pour updatedAt si nécessaire
-    public function getUpdatedAt(): DateTimeImmutable
-    {
-        return $this->updatedAt;
     }
 }
