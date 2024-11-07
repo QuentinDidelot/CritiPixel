@@ -1,5 +1,7 @@
 <?php
 
+// src/Repository/UserRepository.php
+
 namespace App\Repository;
 
 use App\Model\Entity\User;
@@ -19,9 +21,11 @@ class UserRepository extends ServiceEntityRepository
         parent::__construct($registry, User::class);
     }
 
-    // Ajouter la méthode findOneByEmail
+    /**
+     * @return Email<User>
+     */
     public function findOneByEmail(string $email): ?User
     {
-        return $this->findOneBy(['email' => 'user@email.com']);
+        return $this->findOneBy(['email' => $email]); // Correction ici : tu utilises la variable $email, pas un email fixe
     }
 }
