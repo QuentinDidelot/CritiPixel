@@ -13,14 +13,14 @@ jobs:
   symfony-tests:
     runs-on: ubuntu-latest
     env:
-      DATABASE_URL: mysql://root@127.0.0.1:3306/criti-pixel_test?charset=utf8mb4
+      DATABASE_URL: mysql://root@127.0.0.1:3306/criti-pixel?charset=utf8mb4
 
     services:
       mysql:
         image: mysql:8.0
         env:
           MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
-          MYSQL_DATABASE: criti-pixel_test
+          MYSQL_DATABASE: criti-pixel
           MYSQL_ROOT_PASSWORD: ""
         ports:
           - 3306:3306
