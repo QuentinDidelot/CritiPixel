@@ -11,13 +11,22 @@ class VideoGameVoter extends Voter
 {
     public const REVIEW = 'review';
 
-    // Spécification des types génériques TAttribute et TSubject
+    /**
+     * @param string $attribute
+     * @param VideoGame $subject
+     * @return bool
+     */
     protected function supports(string $attribute, mixed $subject): bool
     {
         return $attribute === self::REVIEW && $subject instanceof VideoGame;
     }
 
-    // Spécification des types génériques TAttribute et TSubject
+    /**
+     * @param string $attribute
+     * @param VideoGame $subject
+     * @param TokenInterface $token
+     * @return bool
+     */
     protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
     {
         $user = $token->getUser();
