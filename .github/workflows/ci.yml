@@ -29,7 +29,6 @@ jobs:
           restore-keys: ${{ runner.os }}-composer-
       - name: Build
         run: |
-          docker compose -f "docker-compose.yml" up -d --build
           composer install
           php bin/console doctrine:database:drop --force --if-exists --env=test
           php bin/console doctrine:database:create --env=test
