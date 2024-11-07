@@ -9,7 +9,7 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 
 /**
- * @extends \App\Security\Voter
+ * @extends Voter<string, VideoGame>
  */
 class VideoGameVoter extends Voter
 {
