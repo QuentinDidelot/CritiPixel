@@ -11,6 +11,9 @@ final class LoginTest extends FunctionalTestCase
 {
     public function testThatLoginShouldSucceeded(): void
     {
+        // Définir le paramètre de serveur pour s'assurer que le client utilise l'hôte local
+        $this->client->setServerParameter('HTTP_HOST', '127.0.0.1:8000');
+        
         $this->get('/auth/login');
 
         $this->client->submitForm('Se connecter', [
@@ -29,6 +32,9 @@ final class LoginTest extends FunctionalTestCase
 
     public function testThatLoginShouldFailed(): void
     {
+        // Définir le paramètre de serveur ici également
+        $this->client->setServerParameter('HTTP_HOST', '127.0.0.1:8000');
+        
         $this->get('/auth/login');
 
         $this->client->submitForm('Se connecter', [
