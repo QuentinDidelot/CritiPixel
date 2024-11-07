@@ -73,6 +73,18 @@ jobs:
           php bin/console doctrine:fixtures:load --env=test --no-interaction --purger=delete
           php bin/console sass:build
 
+      - name: Install Symfony CLI
+        run: wget https://get.symfony.com/cli/installer -O - | bash
+      
+      - name: Move Symfony CLI
+        run: mv /home/runner/.symfony5/bin/symfony /usr/local/bin/symfony
+          
+      - name: Start Symfony Server
+        run: symfony server:start --daemon --no-tls     
+      
+      - name: Check Symfony Server
+        run: symfony server:status
+        
       - name: Tests
         env: 
           APP_ENV: test
