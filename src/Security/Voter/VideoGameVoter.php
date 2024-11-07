@@ -12,20 +12,16 @@ class VideoGameVoter extends Voter
     public const REVIEW = 'review';
 
     /**
-     * @param string $attribute
-     * @param VideoGame $subject
-     * @return bool
+     * La classe VideoGameVoter étend Voter, et nous devons spécifier les types génériques ici
      */
     protected function supports(string $attribute, mixed $subject): bool
     {
+        // Vérifie si l'attribut est REVIEW et que le sujet est une instance de VideoGame
         return $attribute === self::REVIEW && $subject instanceof VideoGame;
     }
 
     /**
-     * @param string $attribute
-     * @param VideoGame $subject
-     * @param TokenInterface $token
-     * @return bool
+     * Cette méthode vérifie si un utilisateur peut voter sur un attribut spécifique du sujet
      */
     protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
     {
