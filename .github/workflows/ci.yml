@@ -1,5 +1,7 @@
 name: Continuous integration
-on: [push]
+on:
+  push:
+    branches: [ "CI-Test" ]
 jobs:
   ci:
     name: Continuous Integration
