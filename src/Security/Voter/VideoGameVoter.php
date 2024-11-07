@@ -7,12 +7,16 @@ use App\Model\Entity\VideoGame;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
+
+/**
+ * @extends \App\Security\Voter
+ */
 class VideoGameVoter extends Voter
 {
     public const REVIEW = 'review';
 
     /**
-     * La classe VideoGameVoter étend Voter, et nous devons spécifier les types génériques ici
+     * Déclare les types génériques : TAttribute et TSubject
      */
     protected function supports(string $attribute, mixed $subject): bool
     {
@@ -21,7 +25,7 @@ class VideoGameVoter extends Voter
     }
 
     /**
-     * Cette méthode vérifie si un utilisateur peut voter sur un attribut spécifique du sujet
+     * Vérifie si l'utilisateur a le droit d'effectuer l'action sur le sujet
      */
     protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
     {
