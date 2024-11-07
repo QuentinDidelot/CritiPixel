@@ -13,14 +13,14 @@ jobs:
   symfony-tests:
     runs-on: ubuntu-latest
     env:
-      DATABASE_URL: mysql://root@127.0.0.1:3306/criti-pixel_test?charset=utf8mb4
+      DATABASE_URL: mysql://root@127.0.0.1:3306/criti-pixel_test_test?charset=utf8mb4
 
     services:
       mysql:
         image: mysql:8.0
         env:
           MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
-          MYSQL_DATABASE: criti-pixel_test
+          MYSQL_DATABASE: criti-pixel_test_test
           MYSQL_ROOT_PASSWORD: ""
         ports:
           - 3306:3306
@@ -39,20 +39,8 @@ jobs:
         with:
           ref: CI-Test
 
-      #- name: List files
-      #  run: ls -la
-        
       - name: Update Composer
         run: composer self-update
-        
-#      - name: Cache Composer packages
-#        id: composer-cache
-#        uses: actions/cache@v3
-#        with:
-#          path: vendor
-#          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
-#          restore-keys: |
-#            ${{ runner.os }}-php-
 
       - name: Install Dependencies
         run: composer install --no-scripts --no-interaction --no-progress --prefer-dist
@@ -65,10 +53,8 @@ jobs:
           done
           sleep 10
 
-      - name: Create Database
+      - name: Set up Database Schema and Load Fixtures
         run: |
-          php bin/console doctrine:database:drop --force --if-exists --env=test
-          php bin/console doctrine:database:create --env=test
           php bin/console doctrine:schema:update --force --env=test
           php bin/console doctrine:fixtures:load --env=test --no-interaction --purger=delete
           php bin/console sass:build
@@ -81,7 +67,7 @@ jobs:
           
       - name: Start Symfony Server
         run: symfony server:start --daemon --no-tls     
-      
+
       - name: Check Symfony Server
         run: symfony server:status
 
