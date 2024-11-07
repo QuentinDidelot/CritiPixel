@@ -51,4 +51,9 @@ class Tag
         $this->name = $name;
         return $this;
     }
+
+    public function __construct()
+{
+    $this->code = ''; 
+}
 }

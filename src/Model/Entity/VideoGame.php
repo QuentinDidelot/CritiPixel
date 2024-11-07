@@ -77,16 +77,12 @@ class VideoGame
     #[Embedded(class: NumberOfRatingPerValue::class, columnPrefix: '')]
     private NumberOfRatingPerValue $numberOfRatingsPerValue;
 
-    /**
-     * @var Collection<int, Tag>
-     */
+    /** @var Collection<int, Tag> */
     #[ManyToMany(targetEntity: Tag::class)]
     #[JoinTable(name: 'video_game_tags')]
     private Collection $tags;
 
-    /**
-     * @var Collection<int, Review>
-     */
+    /** @var Collection<int, Review> */
     #[OneToMany(targetEntity: Review::class, mappedBy: 'videoGame')]
     private Collection $reviews;
 
@@ -118,6 +114,13 @@ class VideoGame
     {
         return $this->slug;
     }
+
+    public function setSlug(string $slug): VideoGame
+    {
+        $this->slug = $slug;
+        return $this;
+    }
+
 
     public function setImageFile(?File $imageFile = null): void
     {
@@ -229,6 +232,11 @@ class VideoGame
     public function getReviews(): Collection
     {
         return $this->reviews;
+    }
+
+    public function getUpdatedAt(): DateTimeImmutable
+    {
+        return $this->updatedAt;
     }
 
     public function hasAlreadyReview(User $user): bool

@@ -51,11 +51,13 @@ final class VideoGamesList implements Countable, IteratorAggregate
         return $this->form;
     }
 
-    public function handleRequest(Request $request): self
+      public function handleRequest(Request $request): self
     {
         $this->filter = new Filter();
 
-        $this->route = $request->attributes->get('_route');
+        /** @var string $route */
+        $route = $request->attributes->get('_route');
+        $this->route = $route;
         $this->routeParameters = $request->query->all();
 
         $this->form = $this->formFactory
@@ -152,8 +154,9 @@ final class VideoGamesList implements Countable, IteratorAggregate
 
     public function count(): int
     {
-        return count($this->data->getIterator());
+        return count(iterator_to_array($this->data->getIterator()));
     }
+    
 
     public function generateUrl(int $page): string
     {
