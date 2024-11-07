@@ -6,7 +6,7 @@ on:
 
 jobs:
   ci:
-    name: Continuous Integration
+    name: Continuous Integration 
     runs-on: ${{ matrix.operating-system }}
     strategy:
       fail-fast: false
