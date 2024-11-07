@@ -11,6 +11,7 @@ class VideoGameVoter extends Voter
 {
     public const REVIEW = 'review';
 
+    // On indique maintenant les types génériques attendus
     protected function supports(string $attribute, mixed $subject): bool
     {
         return $attribute === self::REVIEW && $subject instanceof VideoGame;
