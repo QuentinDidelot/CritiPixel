@@ -20,7 +20,7 @@ jobs:
         image: mysql:8.0
         env:
           MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
-          MYSQL_DATABASE: criti-pixel_test_test
+          MYSQL_DATABASE: criti-pixel_test
           MYSQL_ROOT_PASSWORD: ""
         ports:
           - 3306:3306
