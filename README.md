@@ -2,7 +2,7 @@
   <img src="assets/images/logo.png" alt="CritiPixel" width="200" />
 </p>
 
-# CritiPixel
+# CritiPixel - Projet 14
 
 CritiPixel est une plateforme de critiques de jeux vidéo, offrant des avis détaillés et des fonctionnalités de notation et de filtrage basées sur des tags. 
 Ce projet vise à enrichir les expériences de la communauté avec un système de notes, des métadonnées de tags, et des options de filtrage avancées.
